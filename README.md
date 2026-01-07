@@ -1,21 +1,41 @@
-# A simple RESTful API to manage products using Hapi.js and MongoDB.
-## This web service allows users to create, read, update, and delete products. 
-It uses Hapi.js as the server framework and MongoDB with Mongoose for data storage.
+# Product Management API
 
-| Endpoint         | Method | Description                         |
-| ---------------- | ------ | ----------------------------------- |
-| `/products`      | GET    | Retrieve all products              |
-| `/products`      | POST   | Add a new product                  |
-| `/products/{id}` | GET    | Retrieve a single product          |
-| `/products/{id}` | PUT    | Update a product                   |
-| `/products/{id}` | DELETE | Delete a product                   |
-| `/`           | GET    | Test route, returns "Hello, world!" |
+A RESTful API built for managing products and categories, providing comprehensive CRUD operations and inventory management capabilities.
+
+## Features
+
+- Complete product management (Create, Read, Update, Delete)
+- Category browsing and retrieval
+- Stock management with dedicated endpoint
+- RESTful API design with standard HTTP methods
+
+## API Endpoints
+
+### Products
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/products` | Retrieve all products |
+| GET | `/products/{id}` | Get a specific product by ID |
+| POST | `/products` | Create a new product |
+| PATCH | `/products/{id}` | Partially update a product |
+| DELETE | `/products/{id}` | Delete a product |
+| PATCH | `/products/{id}/stock` | Update product stock levels |
+
+### Categories
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/categories` | Retrieve all categories |
+| GET | `/categories/{id}` | Get a specific category by ID |
+
+## Getting Started
 
 
+### Installation
 
 
-
-
+The API will be available at `http://localhost:3000` (or your configured port).
 
 
 Getting started:

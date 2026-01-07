@@ -25,13 +25,6 @@ module.exports = (server) => {
         handler: deleteProduct
     });
 
-    //update product
-    server.route({
-        method: 'PUT',
-        path:   '/products/{id}',
-        handler: updateProduct
-    });
-
     //get product by id
     server.route({
         method: 'GET',
