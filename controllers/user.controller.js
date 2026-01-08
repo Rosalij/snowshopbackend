@@ -1,29 +1,59 @@
 const User = require("../models/User");
+const bcrypt = require("bcrypt");
 const { ObjectId } = require("mongodb");    
+const SALT_ROUNDS = 10;
+const jwt = require('jsonwebtoken');
+
 // add a new user
 const addUser = async (request, h) => {
     try {
-        const newUser = new User(request.payload);
+        const { password, ...rest } = request.payload;
+
+        const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+
+        const newUser = new User({
+            ...rest,
+            password: hashedPassword
+        });
+
         const saved = await newUser.save();
         return h.response(saved).code(201);
+
     } catch (err) {
         return h.response({ error: err.message }).code(500);
     }
 };
 
+
+// Login user
 const loginUser = async (request, h) => {
     try {
         const { username, password } = request.payload;
-        const user = await User.find
-            .findOne({ username: username });
+
+        const user = await User.findOne({ username });
         if (!user) {
             return h.response({ error: 'User not found' }).code(404);
-        }   
-        // compare hashed passwords later
-        if (user.password !== password) {
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
             return h.response({ error: 'Invalid password' }).code(401);
         }
-        return h.response({ message: 'Login successful', user }).code(200);
+
+        const token = jwt.sign(
+            {
+                id: user._id,
+                username: user.username
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: process.env.JWT_EXPIRES_IN || '1d' }
+        );
+
+        return h.response({
+            message: 'Login successful',
+            token
+        }).code(200);
+
     } catch (err) {
         return h.response({ error: err.message }).code(500);
     }

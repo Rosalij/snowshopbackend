@@ -1,8 +1,10 @@
 'use strict';
 
 const { getAllProducts, changeStock, addProduct, deleteProduct, updateProduct, getProductById } = require('./controllers/product.controller');
-const { getAllCategories, getCategoryById, deleteCategory, addCategory, updateCategory} = require('./controllers/category.controller');
+const { getAllCategories, getCategoryById, deleteCategory, addCategory, updateCategory } = require('./controllers/category.controller');
 const { addUser, loginUser, deleteUser, getAllUsers, getUserById, updateUser } = require('./controllers/user.controller');
+const auth = require('./middlewares/authentication');
+
 module.exports = (server) => {
 
     //get all products
@@ -16,6 +18,9 @@ module.exports = (server) => {
     server.route({
         method: 'POST',
         path: '/products',
+        options: {
+            pre: [{ method: auth }]
+        },
         handler: addProduct
     });
 
@@ -23,6 +28,9 @@ module.exports = (server) => {
     server.route({
         method: 'DELETE',
         path: '/products/{id}',
+        options: {
+            pre: [{ method: auth }]
+        },
         handler: deleteProduct
     });
 
@@ -37,6 +45,9 @@ module.exports = (server) => {
     server.route({
         method: 'PATCH',
         path: '/products/{id}',
+        options: {
+            pre: [{ method: auth }]
+        },
         handler: updateProduct
     });
 
@@ -56,18 +67,27 @@ module.exports = (server) => {
     server.route({
         method: 'DELETE',
         path: '/categories/{id}',
+        options: {
+            pre: [{ method: auth }]
+        },
         handler: deleteCategory
     });
 
     server.route({
-        method: 'POST', 
+        method: 'POST',
         path: '/categories',
+        options: {
+            pre: [{ method: auth }]
+        },
         handler: addCategory
     });
 
     server.route({
         method: 'PATCH',
         path: '/categories/{id}',
+        options: {
+            pre: [{ method: auth }]
+        },
         handler: updateCategory
     });
 
@@ -75,6 +95,9 @@ module.exports = (server) => {
     server.route({
         method: 'PATCH',
         path: '/products/{id}/stock',
+        options: {
+            pre: [{ method: auth }]
+        },
         handler: changeStock
     });
 
@@ -82,12 +105,15 @@ module.exports = (server) => {
     server.route({
         method: 'POST',
         path: '/users',
+        options: {
+            pre: [{ method: auth }]
+        },
         handler: addUser
     });
 
     //user login route
     server.route({
-        method: 'POST', 
+        method: 'POST',
         path: '/users/login',
         handler: loginUser
     });
@@ -96,6 +122,9 @@ module.exports = (server) => {
     server.route({
         method: 'DELETE',
         path: '/users/{id}',
+        options: {
+            pre: [{ method: auth }]
+        },
         handler: deleteUser
     });
 
@@ -103,6 +132,9 @@ module.exports = (server) => {
     server.route({
         method: 'GET',
         path: '/users',
+        options: {
+            pre: [{ method: auth }]
+        },
         handler: getAllUsers
     });
 
@@ -110,6 +142,9 @@ module.exports = (server) => {
     server.route({
         method: 'GET',
         path: '/users/{id}',
+        options: {
+            pre: [{ method: auth }]
+        },
         handler: getUserById
     });
 
@@ -117,6 +152,9 @@ module.exports = (server) => {
     server.route({
         method: 'PATCH',
         path: '/users/{id}',
+        options: {
+            pre: [{ method: auth }]
+        },
         handler: updateUser
     });
 }
