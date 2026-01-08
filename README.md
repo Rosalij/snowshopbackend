@@ -5,8 +5,9 @@ A RESTful API built for managing products and categories, providing comprehensiv
 ## Features
 
 - Complete product management (Create, Read, Update, Delete)
-- Category browsing and retrieval
+- Category browsing and retrieval and complete CRUD for categories
 - Stock management with dedicated endpoint
+- User login and manegement with complete CRUD functionality for users
 - RESTful API design with standard HTTP methods
 
 - ## 🔐 Authentication (JWT)
