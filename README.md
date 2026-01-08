@@ -12,7 +12,7 @@ A RESTful API built for managing products and categories, providing comprehensiv
 ## API Endpoints
 
 ### Products
-
+**
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/products` | Retrieve all products |
@@ -20,14 +20,26 @@ A RESTful API built for managing products and categories, providing comprehensiv
 | POST | `/products` | Create a new product |
 | PATCH | `/products/{id}` | Partially update a product |
 | DELETE | `/products/{id}` | Delete a product |
-| PATCH | `/products/{id}/stock` | Update product stock levels |
+| PATCH | `/products/{id}/stock` | Update product stock levels |**
 
 ### Categories
+| Method | Endpoint           | Description             |
+| ------ | ------------------ | ----------------------- |
+| GET    | `/categories`      | Retrieve all categories |
+| GET    | `/categories/{id}` | Get category by ID      |
+| POST   | `/categories`      | Create a new category   |
+| PATCH  | `/categories/{id}` | Update a category       |
+| DELETE | `/categories/{id}` | Delete a category       |
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/categories` | Retrieve all categories |
-| GET | `/categories/{id}` | Get a specific category by ID |
+### Users
+| Method | Endpoint       | Description        |
+| ------ | -------------- | ------------------ |
+| POST   | `/users`       | Create a new user  |
+| POST   | `/users/login` | User login         |
+| GET    | `/users`       | Retrieve all users |
+| GET    | `/users/{id}`  | Get user by ID     |
+| PATCH  | `/users/{id}`  | Update user        |
+| DELETE | `/users/{id}`  | Delete user        |
 
 ## Getting Started
 
