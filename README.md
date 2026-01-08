@@ -9,6 +9,10 @@ A RESTful API built for managing products and categories, providing comprehensiv
 - Stock management with dedicated endpoint
 - RESTful API design with standard HTTP methods
 
+- ## 🔐 Authentication (JWT)
+
+This API uses **JSON Web Tokens (JWT)** to protect sensitive routes.
+
 ## API Endpoints
 
 ### Products
