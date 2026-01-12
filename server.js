@@ -10,14 +10,14 @@ const init = async () => {
 const server = Hapi.server({
   port: process.env.PORT || 5000,
   host: '0.0.0.0',
- routes: {
+routes: {
   cors: {
-    origin: ['*'], // allow all origins for dev
-    additionalHeaders: ['cache-control', 'x-requested-with', 'authorization', 'content-type']
-  } 
-    }
+    origin: ['http://localhost:5173', 'https://your-netlify-app.netlify.app'],
+    additionalHeaders: ['cache-control', 'x-requested-with', 'authorization', 'content-type'],
+    credentials: true // optional, only if you need cookies
+  }
+}
 });
-
     
 
     //connect to database
