@@ -12,10 +12,9 @@ const server = Hapi.server({
   host: '0.0.0.0',
   routes: {
     cors: {
-      origin: ['http://localhost:5173', 'https://snowshopfrontend.app'], // allowed origins
+      origin: ['*'], // allowed origins
       additionalHeaders: ['cache-control', 'x-requested-with', 'authorization', 'content-type'],
-      credentials: true // if you need cookies/auth
-    }
+      credentials: true
   }
 });
 
