@@ -11,6 +11,9 @@ module.exports = (server) => {
     server.route({
         method: 'GET',
         path: '/products',
+        options: {
+            cors: true,
+        },
         handler: getAllProducts
     });
 
@@ -19,7 +22,8 @@ module.exports = (server) => {
         method: 'POST',
         path: '/products',
         options: {
-            pre: [{ method: auth }]
+            pre: [{ method: auth }],
+            cors: true
         },
         handler: addProduct
     });
@@ -29,7 +33,8 @@ module.exports = (server) => {
         method: 'DELETE',
         path: '/products/{id}',
         options: {
-            pre: [{ method: auth }]
+            pre: [{ method: auth }],
+            cors: true
         },
         handler: deleteProduct
     });
@@ -38,7 +43,9 @@ module.exports = (server) => {
     server.route({
         method: 'GET',
         path: '/products/{id}',
-        handler: getProductById
+        options: {
+            cors: true,
+        }, handler: getProductById
     });
 
     //update product
@@ -46,7 +53,8 @@ module.exports = (server) => {
         method: 'PATCH',
         path: '/products/{id}',
         options: {
-            pre: [{ method: auth }]
+            pre: [{ method: auth }],
+            cors: true
         },
         handler: updateProduct
     });
@@ -55,12 +63,18 @@ module.exports = (server) => {
     server.route({
         method: 'GET',
         path: '/categories',
+    options: {
+            cors: true,
+        },
         handler: getAllCategories
     });
 
     server.route({
         method: 'GET',
         path: '/categories/{id}',
+        options: {
+            cors: true,
+        },
         handler: getCategoryById
     });
 
@@ -68,7 +82,8 @@ module.exports = (server) => {
         method: 'DELETE',
         path: '/categories/{id}',
         options: {
-            pre: [{ method: auth }]
+            pre: [{ method: auth }],
+            cors: true
         },
         handler: deleteCategory
     });
@@ -77,7 +92,8 @@ module.exports = (server) => {
         method: 'POST',
         path: '/categories',
         options: {
-            pre: [{ method: auth }]
+            pre: [{ method: auth }],
+            cors: true
         },
         handler: addCategory
     });
@@ -86,7 +102,8 @@ module.exports = (server) => {
         method: 'PATCH',
         path: '/categories/{id}',
         options: {
-            pre: [{ method: auth }]
+            pre: [{ method: auth }],
+            cors: true
         },
         handler: updateCategory
     });
@@ -96,7 +113,8 @@ module.exports = (server) => {
         method: 'PATCH',
         path: '/products/{id}/stock',
         options: {
-            pre: [{ method: auth }]
+            pre: [{ method: auth }],
+            cors: true
         },
         handler: changeStock
     });
@@ -106,7 +124,8 @@ module.exports = (server) => {
         method: 'POST',
         path: '/users',
         options: {
-            pre: [{ method: auth }]
+            pre: [{ method: auth }],
+            cors: true
         },
         handler: addUser
     });
@@ -115,7 +134,7 @@ module.exports = (server) => {
     server.route({
         method: 'POST',
         path: '/users/login',
-         options: { cors: true },
+        options: { cors: true },
         handler: loginUser
     });
 
@@ -124,6 +143,7 @@ module.exports = (server) => {
         method: 'DELETE',
         path: '/users/{id}',
         options: {
+            cors: true,
             pre: [{ method: auth }]
         },
         handler: deleteUser
@@ -134,6 +154,7 @@ module.exports = (server) => {
         method: 'GET',
         path: '/users',
         options: {
+            cors: true,
             pre: [{ method: auth }]
         },
         handler: getAllUsers
@@ -144,6 +165,7 @@ module.exports = (server) => {
         method: 'GET',
         path: '/users/{id}',
         options: {
+            cors: true,
             pre: [{ method: auth }]
         },
         handler: getUserById
@@ -154,7 +176,9 @@ module.exports = (server) => {
         method: 'PATCH',
         path: '/users/{id}',
         options: {
-            pre: [{ method: auth }]
+
+            pre: [{ method: auth }],
+            cors: true
         },
         handler: updateUser
     });

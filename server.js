@@ -16,7 +16,7 @@ routes: {
     additionalHeaders: ['cache-control', 'x-requested-with', 'authorization', 'content-type'],
     credentials: true // optional, only if you need cookies
   }
-}
+}   
 });
     
 
