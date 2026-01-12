@@ -28,9 +28,9 @@ const addUser = async (request, h) => {
 // Login user
 const loginUser = async (request, h) => {
     try {
-        const { username, password } = request.payload;
+        const { email, password } = request.payload;
 
-        const user = await User.findOne({ username });
+        const user = await User.findOne({ email });
         if (!user) {
             return h.response({ error: 'User not found' }).code(404);
         }
@@ -43,7 +43,7 @@ const loginUser = async (request, h) => {
         const token = jwt.sign(
             {
                 id: user._id,
-                username: user.username
+                email: user.email,
             },
             process.env.JWT_SECRET,
             { expiresIn: process.env.JWT_EXPIRES_IN || '1d' }
