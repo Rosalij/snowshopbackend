@@ -15,7 +15,8 @@ const server = Hapi.server({
       origin: ['*'], // allowed origins
       additionalHeaders: ['cache-control', 'x-requested-with', 'authorization', 'content-type'],
       credentials: true
-  }
+  }     
+    }
 });
 
     
