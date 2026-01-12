@@ -115,6 +115,7 @@ module.exports = (server) => {
     server.route({
         method: 'POST',
         path: '/users/login',
+         options: { cors: true },
         handler: loginUser
     });
 

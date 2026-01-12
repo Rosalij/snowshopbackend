@@ -10,12 +10,11 @@ const init = async () => {
 const server = Hapi.server({
   port: process.env.PORT || 5000,
   host: '0.0.0.0',
-  routes: {
-    cors: {
-      origin: ['*'], // allowed origins
-      additionalHeaders: ['cache-control', 'x-requested-with', 'authorization', 'content-type'],
-      credentials: true
-  }     
+ routes: {
+  cors: {
+    origin: ['*'], // allow all origins for dev
+    additionalHeaders: ['cache-control', 'x-requested-with', 'authorization', 'content-type']
+  } 
     }
 });
 
