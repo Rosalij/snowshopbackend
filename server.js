@@ -12,9 +12,11 @@ const init = async () => {
         port: process.env.PORT || 5000,
         host: '0.0.0.0',
      routes: {
+  routes: {
   cors: {
-    origin: ["*"]
+    origin: ['http://localhost:5173', 'https://snowshopfrontend.netlify.app']
   }
+}
 }
   });
 
