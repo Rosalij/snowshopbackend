@@ -50,36 +50,32 @@ const getProductById = async (request, h) => {
         return h.response({ error: err.message }).code(500);
     }
 }
-
 const updateProduct = async (request, h) => {
     const { id } = request.params; // get product ID from URL
     const updates = request.payload; // fields to update
-
-    // Validate ObjectId
-    if (!ObjectId.isValid(id)) {
-        return h.response({ error: 'Invalid product ID' }).code(400);
-    }
 
     // Prevent updating _id
     if (updates._id) delete updates._id;
 
     try {
-        const result = await request.mongo.db.collection('products').updateOne(
-            { _id: ObjectId(id) },
-            { $set: updates }
+        const updatedProduct = await Product.findByIdAndUpdate(
+            id,
+            updates,
+            { new: true } // return the updated document
         );
 
-        if (result.matchedCount === 0) {
+        if (!updatedProduct) {
             return h.response({ error: 'Product not found' }).code(404);
         }
 
-        return h.response({ message: 'Product updated', updatedFields: updates }).code(200);
+        return h.response({ message: 'Product updated', product: updatedProduct }).code(200);
 
     } catch (err) {
-        console.error(err);
+        console.error('Failed to update product:', err);
         return h.response({ error: 'Failed to update product' }).code(500);
     }
 };
+
 const changeStock = async (request, h) => {
     const { id } = request.params;
     const { stockChange } = request.payload; 
