@@ -34,7 +34,7 @@ server.route({
     method: 'GET',
     path: '/',
     handler: (request, h) => {
-        return 'Hello, world!!!';
+        return 'The server is up and running!';
     }
 
 });
