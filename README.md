@@ -1,13 +1,18 @@
 # Product Management API
 
-A RESTful API built for managing products and categories, providing comprehensive CRUD operations and inventory management capabilities.
+A RESTful API built for managing users, products and categories for a company website, also called stock/inventory manegement application. providing CRUD operations and inventory management capabilities.
 
 ## Features
 
 - Complete product management (Create, Read, Update, Delete)
-- Category browsing and retrieval
+- Category browsing and retrieval and complete CRUD for categories
 - Stock management with dedicated endpoint
+- User login and manegement with complete CRUD functionality for users
 - RESTful API design with standard HTTP methods
+
+- ## 🔐 Authentication (JWT)
+
+This API uses **JSON Web Tokens (JWT)** to protect sensitive routes.
 
 ## API Endpoints
 
