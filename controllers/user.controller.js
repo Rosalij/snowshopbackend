@@ -25,7 +25,6 @@ const addUser = async (request, h) => {
 };
 
 
-// Login user
 const loginUser = async (request, h) => {
     try {
         const { email, password } = request.payload;
@@ -55,6 +54,7 @@ const loginUser = async (request, h) => {
         }).code(200);
 
     } catch (err) {
+        console.error('Login error:', err); 
         return h.response({ error: err.message }).code(500);
     }
 };
