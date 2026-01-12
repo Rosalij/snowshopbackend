@@ -7,16 +7,17 @@ const routes = require('./routes');
 
 //initialize server
 const init = async () => {
-
-    const server = Hapi.server({
-        port: process.env.PORT || 5000,
-        host: '0.0.0.0',
-   routes: {
-  cors: {
-    origin: ['http://localhost:5173', 'https://your-netlify-app.netlify.app']
+const server = Hapi.server({
+  port: process.env.PORT || 5000,
+  host: '0.0.0.0',
+  routes: {
+    cors: {
+      origin: ['http://localhost:5173', 'https://snowshopfrontend.app'], // allowed origins
+      additionalHeaders: ['cache-control', 'x-requested-with', 'authorization', 'content-type'],
+      credentials: true // if you need cookies/auth
+    }
   }
-}
-  });
+});
 
     
 
