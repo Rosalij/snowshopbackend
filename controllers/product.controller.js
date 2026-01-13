@@ -3,15 +3,17 @@ const Product = require('../models/Product');
 const { ObjectId } = require('mongodb');
 
 // get all products
+
 const getAllProducts = async (request, h) => {
     try {
-        const products = await Product.find();
+        const products = await Product.find().populate("category", "name slug"); 
+      
+
         return h.response(products).code(200);
     } catch (err) {
         return h.response({ error: err.message }).code(500);
     }
 };
-
 //add a new product
 const addProduct = async (request, h) => {
     try {
