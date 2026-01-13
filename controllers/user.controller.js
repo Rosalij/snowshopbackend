@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const { ObjectId } = require("mongodb");    
 const SALT_ROUNDS = 10;
 const jwt = require('jsonwebtoken');
+const { create } = require("../models/Product");
 
 // add a new user
 const addUser = async (request, h) => {
@@ -43,6 +44,9 @@ const loginUser = async (request, h) => {
             {
                 id: user._id,
                 email: user.email,
+                username: user.username,
+                role: user.role,
+                createdAt: user.createdAt
             },
             process.env.JWT_SECRET,
             { expiresIn: process.env.JWT_EXPIRES_IN || '1d' }

@@ -92,6 +92,7 @@ const changeStock = async (request, h) => {
     return { message: `Stock updated by ${stockChange}` };
 };
 
+
 //export functions
 module.exports = {
     changeStock,
