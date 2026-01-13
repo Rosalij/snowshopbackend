@@ -39,7 +39,7 @@ const loginUser = async (request, h) => {
         if (!isMatch) {
             return h.response({ error: 'Invalid password' }).code(401);
         }
-        const
+     
         const token = jwt.sign(
             {
                 id: user._id,
