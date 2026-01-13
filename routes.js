@@ -1,7 +1,7 @@
 'use strict';
 
 const { getAllProducts, changeStock, addProduct, deleteProduct, updateProduct, getProductById } = require('./controllers/product.controller');
-const { getAllCategories, getCategoryById, deleteCategory, addCategory, updateCategory } = require('./controllers/category.controller');
+const { getAllCategories, getCategoryByName, deleteCategory, addCategory, updateCategory } = require('./controllers/category.controller');
 const { addUser, loginUser, deleteUser, getAllUsers, getUserById, updateUser } = require('./controllers/user.controller');
 const auth = require('./middlewares/authentication');
 
@@ -71,11 +71,11 @@ module.exports = (server) => {
 
     server.route({
         method: 'GET',
-        path: '/categories/{id}',
+        path: '/categories/{category}',
         options: {
             cors: true,
         },
-        handler: getCategoryById
+        handler: getCategoryByName
     });
 
     server.route({

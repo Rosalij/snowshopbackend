@@ -11,9 +11,9 @@ const getAllCategories = async (request, h) => {
     }
 };
 
-const getCategoryById = async (request, h) => {
+const getCategoryByName = async (request, h) => {
     try {
-        const category = await Category.findById(request.params.id);
+        const category = await Category.findByName(request.params.category);
         if (!category) {
             return h.response({ error: 'Category not found' }).code(404);
         }
@@ -68,7 +68,7 @@ const updateCategory = async (request, h) => {
 //export functions
 module.exports = {
         getAllCategories,
-        getCategoryById,
+        getCategoryByName,
         deleteCategory,
         addCategory,
         updateCategory
