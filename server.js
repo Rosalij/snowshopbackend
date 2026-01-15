@@ -12,7 +12,7 @@ const server = Hapi.server({
   host: '0.0.0.0',
 routes: {
   cors: {
-    origin: ['http://localhost:5173', 'https://your-netlify-app.netlify.app'],
+    origin: ['http://localhost:5173', 'https://snowshopadmin.netlify.app'],
     additionalHeaders: ['cache-control', 'x-requested-with', 'authorization', 'content-type'],
     credentials: true // optional, only if you need cookies
   }
