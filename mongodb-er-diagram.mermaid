@@ -1,0 +1,31 @@
+erDiagram
+    Category ||--o{ Product : contains
+    
+    Category {
+        ObjectId _id PK
+        String name UK
+        String slug UK
+        Date createdAt
+        Date updatedAt
+    }
+    
+    Product {
+        ObjectId _id PK
+        String name
+        String description
+        Number price
+        Number stock
+        ObjectId category FK
+        String size
+        String color
+        String level
+    }
+    
+    User {
+        ObjectId _id PK
+        String username UK
+        String password
+        String email UK
+        String role
+        Date createdAt
+    }
