@@ -39,7 +39,7 @@ const loginUser = async (request, h) => {
         if (!isMatch) {
             return h.response({ error: 'Invalid password' }).code(401);
         }
-     
+
         const token = jwt.sign(
             {
                 id: user._id,
@@ -63,74 +63,93 @@ const loginUser = async (request, h) => {
                 role: user.role,
                 createdAt: user.createdAt
             }
-        }).code(200); 
+        }).code(200);
 
     } catch (err) {
         return h.response({ error: err.message }).code(500);
-    }   
+    }
 };
-        const deleteUser = async (request, h) => {
-            try {
-                const deleted = await User.findByIdAndDelete(request.params.id);
-                if (!deleted) {
-                    return h.response({ error: 'User not found' }).code(404);
-                }
-                return h.response(deleted).code(200);
-            } catch (err) {
-                return h.response({ error: err.message }).code(500);
-            }
-        };
+const deleteUser = async (request, h) => {
+    try {
+        const deleted = await User.findByIdAndDelete(request.params.id);
+        if (!deleted) {
+            return h.response({ error: 'User not found' }).code(404);
+        }
+        return h.response(deleted).code(200);
+    } catch (err) {
+        return h.response({ error: err.message }).code(500);
+    }
+};
 
-        const getAllUsers = async (request, h) => {
-            try {
-                const users = await User.find();
-                return h.response(users).code(200);
-            } catch (err) {
-                return h.response({ error: err.message }).code(500);
-            }
-        };
-        const getUserById = async (request, h) => {
-            try {
-                const user = await
-                    User.findById(request.params.id);
-                if (!user) {
-                    return h.response({ error: 'User not found' }).code(404);
-                }
-                return h.response(user).code(200);
-            } catch (err) {
-                return h.response({ error: err.message }).code(500);
-            }
-        };
+const getAllUsers = async (request, h) => {
+    try {
+        const users = await User.find();
+        return h.response(users).code(200);
+    } catch (err) {
+        return h.response({ error: err.message }).code(500);
+    }
+};
+const getUserById = async (request, h) => {
+    try {
+        const user = await
+            User.findById(request.params.id);
+        if (!user) {
+            return h.response({ error: 'User not found' }).code(404);
+        }
+        return h.response(user).code(200);
+    } catch (err) {
+        return h.response({ error: err.message }).code(500);
+    }
+};
 
-        const updateUser = async (request, h) => {
-            const { id } = request.params; // get user ID from URL
-            const updates = request.payload; // fields to update
-            // Validate ObjectId
-            if (!ObjectId.isValid(id)) {
-                return h.response({ error: 'Invalid user ID' }).code(400);
-            }
-            // Prevent updating _id
-            if (updates._id) delete updates._id;
-            try {
-                const updated = await User.findByIdAndUpdate(
-                    id,
-                    updates,
-                    { new: true }
-                );
-                if (!updated) {
-                    return h.response({ error: 'User not found' }).code(404);
-                }
-                return h.response(updated).code(200);
-            } catch (err) {
-                return h.response({ error: err.message }).code(500);
-            }
-        };
+    const updateUser = async (request, h) => {
+    const { id } = request.params;
+    const updates = { ...request.payload };
 
-        module.exports = {
-            addUser,
-            loginUser,
-            deleteUser,
-            getAllUsers,
-            getUserById,
-            updateUser
-        };
+    if (!ObjectId.isValid(id)) {
+        return h.response({ error: 'Invalid user ID' }).code(400);
+    }
+
+    // hash password if it's being updated
+    if (updates.password) {
+        updates.password = await bcrypt.hash(updates.password, SALT_ROUNDS);
+    }
+
+    // prevent _id overwrite
+    delete updates._id;
+
+    try {
+        const updated = await User.findByIdAndUpdate(
+            id,
+            updates,
+            { new: true }
+        );
+
+        if (!updated) {
+            return h.response({ error: 'User not found' }).code(404);
+        }
+
+        return h.response({
+            message: 'User updated',
+            user: {
+                id: updated._id,
+                username: updated.username,
+                email: updated.email,
+                role: updated.role
+            }
+        }).code(200);
+
+    } catch (err) {
+        return h.response({ error: err.message }).code(500);
+    }
+};
+
+
+module.exports = {
+    addUser,
+    loginUser,
+    deleteUser,
+    getAllUsers,
+    getUserById,
+    updateUser
+};
