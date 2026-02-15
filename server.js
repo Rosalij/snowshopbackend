@@ -6,32 +6,28 @@ const mongoose = require("mongoose");
 const routes = require('./routes');
 
 const init = async () => {
-
-  const server = Hapi.server({
-    port: process.env.PORT || 5000,
-    host: '0.0.0.0',
-    routes: {
-      cors: {
-        origin: [
-          'http://localhost:5173',
-          'https://snowshopadmin.netlify.app'
-        ],
-        additionalHeaders: [
-          'authorization',
-          'content-type'
-        ],
-        credentials: false
-      }
+  
+const server = Hapi.server({
+  port: process.env.PORT || 5000,
+  host: "0.0.0.0",
+  routes: {
+    cors: {
+      origin: [
+        "http://localhost:5173",
+        "https://snowshopadmin.netlify.app"
+      ],
+      headers: ["Accept", "Authorization", "Content-Type"],
     }
-  });
+  }
+});
 
-  server.route({
-    method: "OPTIONS",
-    path: "/{any*}",
-    handler: (request, h) => {
-      return h.response().code(200);
-    }
-  });
+// Preflight support
+server.route({
+  method: "OPTIONS",
+  path: "/{any*}",
+  handler: (request, h) => h.response().code(200)
+});
+
 
   // Connect DB
   mongoose.connect(process.env.MONGO_URI)
