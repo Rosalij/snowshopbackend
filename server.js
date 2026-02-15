@@ -16,16 +16,23 @@ const server = Hapi.server({
         "http://localhost:5173",
         "https://snowshopadmin.netlify.app"
       ],
-      headers: ["Accept", "Authorization", "Content-Type"],
+      allowedHeaders: [
+        "Accept",
+        "Authorization",
+        "Content-Type"
+      ],
+      credentials: false
     }
   }
 });
 
-// Preflight support
+// ✅ MUST handle OPTIONS preflight
 server.route({
   method: "OPTIONS",
   path: "/{any*}",
-  handler: (request, h) => h.response().code(200)
+  handler: (request, h) => {
+    return h.response().code(200);
+  }
 });
 
 
