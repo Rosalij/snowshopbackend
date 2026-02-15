@@ -24,12 +24,17 @@ module.exports = (server) => {
   // ---------------- USERS ----------------
 
   // Public login route
-  server.route({
-    method: ['POST', 'OPTIONS'],
-    path: '/users/login',
-    options: { cors: routeCors },
-    handler: loginUser
-  });
+server.route({
+  method: 'POST',
+  path: '/users/login',
+  options: {
+    cors: {
+      origin: ['http://localhost:5173', 'https://snowshopfrontend.netlify.app'],
+      additionalHeaders: ['content-type', 'authorization'],
+    }
+  },
+  handler: loginUser
+});
 
   // Add user (protected)
   server.route({

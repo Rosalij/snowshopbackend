@@ -8,18 +8,19 @@ const routes = require('./routes');
 
 
 const init = async () => {
-const server = Hapi.server({
-  port: process.env.PORT || 5000,
-  host: "0.0.0.0",
-  routes: {
+server.route({
+  method: 'OPTIONS',
+  path: '/users/login',
+  handler: (request, h) => {
+    return h.response().code(200);
+  },
+  options: {
     cors: {
-      origin: [
-        "http://localhost:5173",
-        "https://snowshopadmin.netlify.app"
-      ]
+      origin: ['http://localhost:5173', 'https://snowshopfrontend.netlify.app'],
+      additionalHeaders: ['content-type', 'authorization'],
     }
   }
-});  
+});
 
 
 // ✅ MUS  T handle OPTIONS preflight
