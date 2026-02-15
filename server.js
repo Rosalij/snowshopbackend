@@ -14,10 +14,6 @@ const server = Hapi.server({
       origin: [
         "http://localhost:5173",
         "https://snowshopadmin.netlify.app"
-      ],
-      additionalHeaders: [
-        "content-type",
-        "authorization"
       ]
     }
   }
