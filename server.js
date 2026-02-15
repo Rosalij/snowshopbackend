@@ -20,7 +20,7 @@ const init = async () => {
           'authorization',
           'content-type'
         ],
-        credentials: true
+        credentials: false
       }
     }
   });
