@@ -1,173 +1,188 @@
 'use strict';
 
-const { 
-  getAllProducts, changeStock, addProduct, deleteProduct, updateProduct, getProductById 
+const {
+    getAllProducts, changeStock, addProduct, deleteProduct, updateProduct, getProductById
 } = require('./controllers/product.controller');
 
-const { 
-  getAllCategories, getCategoryByName, addCategory, updateCategory, deleteCategory 
+const {
+    getAllCategories, getCategoryByName, addCategory, updateCategory, deleteCategory
 } = require('./controllers/category.controller');
 
-const { 
-  addUser, loginUser, deleteUser, getAllUsers, getUserById, updateUser 
+const {
+    addUser, loginUser, deleteUser, getAllUsers, getUserById, updateUser
 } = require('./controllers/user.controller');
 
 const auth = require('./middlewares/authentication');
 
 const routeCors = {
-  origin: ['http://localhost:5173', 'https://your-netlify-app.netlify.app'],
-  additionalHeaders: ['content-type', 'authorization'],
+    origin: ['http://localhost:5173', 'https://your-netlify-app.netlify.app'],
+    additionalHeaders: ['content-type', 'authorization'],
 };
 
 module.exports = (server) => {
 
-  // ---------------- USERS ----------------
+    // ---------------- USERS ----------------
 
-  // Public login route
-server.route({
-  method: "POST",
-  path: "/users/login",
-  options: {
-    cors: {
-      origin: [
-        "http://localhost:5173",
-        "https://snowshopfrontend.netlify.app"
-      ],
-      additionalHeaders: ["content-type"]
-    }
-  },
-  handler: loginUser
-});
+    // Public login route
+    server.route({
+        method: "POST",
+        path: "/users/login",
+        options: {
+            cors: {
+                origin: [
+                    "http://localhost:5173",
+                    "https://snowshopfrontend.netlify.app"
+                ],
+                additionalHeaders: ["content-type"]
+            }
+        },
+        handler: loginUser
+    });
 
-  // Add user (protected)
-  server.route({
-    method: 'POST',
-    path: '/users',
-    options: { pre: [{ method: auth }], cors: routeCors },
-    handler: addUser
-  });
+    server.route({
+        method: "GET",
+        path: "/users/me",
+        options: {
+            pre: [{ method: auth }]
+        },
+        handler: async (request, h) => {
+            return h.response({
+                message: "Token valid",
+                userId: request.auth.userId
+            });
+        }
+    });
 
-  // Delete user (protected)
-  server.route({
-    method: 'DELETE',
-    path: '/users/{id}',
-    options: { pre: [{ method: auth }], cors: routeCors },
-    handler: deleteUser
-  });
 
-  // Get all users (protected)
-  server.route({
-    method: 'GET',
-    path: '/users',
-    options: { pre: [{ method: auth }], cors: routeCors },
-    handler: getAllUsers
-  });
+    // Add user (protected)
+    server.route({
+        method: 'POST',
+        path: '/users',
+        options: { pre: [{ method: auth }], cors: routeCors },
+        handler: addUser
+    });
 
-  // Get user by id (protected)
-  server.route({
-    method: 'GET',
-    path: '/users/{id}',
-    options: { pre: [{ method: auth }], cors: routeCors },
-    handler: getUserById
-  });
+    // Delete user (protected)
+    server.route({
+        method: 'DELETE',
+        path: '/users/{id}',
+        options: { pre: [{ method: auth }], cors: routeCors },
+        handler: deleteUser
+    });
 
-  // Update user (protected)
-  server.route({
-    method: 'PATCH',
-    path: '/users/{id}',
-    options: { pre: [{ method: auth }], cors: routeCors },
-    handler: updateUser
-  });
+    // Get all users (protected)
+    server.route({
+        method: 'GET',
+        path: '/users',
+        options: { pre: [{ method: auth }], cors: routeCors },
+        handler: getAllUsers
+    });
 
-  // ---------------- PRODUCTS ----------------
+    // Get user by id (protected)
+    server.route({
+        method: 'GET',
+        path: '/users/{id}',
+        options: { pre: [{ method: auth }], cors: routeCors },
+        handler: getUserById
+    });
 
-  // Get all products (public)
-  server.route({
-    method: 'GET',
-    path: '/products',
-    options: { cors: routeCors },
-    handler: getAllProducts
-  });
+    // Update user (protected)
+    server.route({
+        method: 'PATCH',
+        path: '/users/{id}',
+        options: { pre: [{ method: auth }], cors: routeCors },
+        handler: updateUser
+    });
 
-  // Add product (protected)
-  server.route({
-    method: 'POST',
-    path: '/products',
-    options: { pre: [{ method: auth }], cors: routeCors },
-    handler: addProduct
-  });
+    // ---------------- PRODUCTS ----------------
 
-  // Delete product (protected)
-  server.route({
-    method: 'DELETE',
-    path: '/products/{id}',
-    options: { pre: [{ method: auth }], cors: routeCors },
-    handler: deleteProduct
-  });
+    // Get all products (public)
+    server.route({
+        method: 'GET',
+        path: '/products',
+        options: { cors: routeCors },
+        handler: getAllProducts
+    });
 
-  // Get product by id (public)
-  server.route({
-    method: 'GET',
-    path: '/products/{id}',
-    options: { cors: routeCors },
-    handler: getProductById
-  });
+    // Add product (protected)
+    server.route({
+        method: 'POST',
+        path: '/products',
+        options: { pre: [{ method: auth }], cors: routeCors },
+        handler: addProduct
+    });
 
-  // Update product (protected)
-  server.route({
-    method: 'PATCH',
-    path: '/products/{id}',
-    options: { pre: [{ method: auth }], cors: routeCors },
-    handler: updateProduct
-  });
+    // Delete product (protected)
+    server.route({
+        method: 'DELETE',
+        path: '/products/{id}',
+        options: { pre: [{ method: auth }], cors: routeCors },
+        handler: deleteProduct
+    });
 
-  // Change product stock (protected)
-  server.route({
-    method: 'PATCH',
-    path: '/products/{id}/stock',
-    options: { pre: [{ method: auth }], cors: routeCors },
-    handler: changeStock
-  });
+    // Get product by id (public)
+    server.route({
+        method: 'GET',
+        path: '/products/{id}',
+        options: { cors: routeCors },
+        handler: getProductById
+    });
 
-  // ---------------- CATEGORIES ----------------
+    // Update product (protected)
+    server.route({
+        method: 'PATCH',
+        path: '/products/{id}',
+        options: { pre: [{ method: auth }], cors: routeCors },
+        handler: updateProduct
+    });
 
-  // Get all categories (public)
-  server.route({
-    method: 'GET',
-    path: '/categories',
-    options: { cors: routeCors },
-    handler: getAllCategories
-  });
+    // Change product stock (protected)
+    server.route({
+        method: 'PATCH',
+        path: '/products/{id}/stock',
+        options: { pre: [{ method: auth }], cors: routeCors },
+        handler: changeStock
+    });
 
-  // Get category by name (public)
-  server.route({
-    method: 'GET',
-    path: '/categories/{category}',
-    options: { cors: routeCors },
-    handler: getCategoryByName
-  });
+    // ---------------- CATEGORIES ----------------
 
-  // Add category (protected)
-  server.route({
-    method: 'POST',
-    path: '/categories',
-    options: { pre: [{ method: auth }], cors: routeCors },
-    handler: addCategory
-  });
+    // Get all categories (public)
+    server.route({
+        method: 'GET',
+        path: '/categories',
+        options: { cors: routeCors },
+        handler: getAllCategories
+    });
 
-  // Update category (protected)
-  server.route({
-    method: 'PATCH',
-    path: '/categories/{id}',
-    options: { pre: [{ method: auth }], cors: routeCors },
-    handler: updateCategory
-  });
+    // Get category by name (public)
+    server.route({
+        method: 'GET',
+        path: '/categories/{category}',
+        options: { cors: routeCors },
+        handler: getCategoryByName
+    });
 
-  // Delete category (protected)
-  server.route({
-    method: 'DELETE',
-    path: '/categories/{id}',
-    options: { pre: [{ method: auth }], cors: routeCors },
-    handler: deleteCategory
-  });
+    // Add category (protected)
+    server.route({
+        method: 'POST',
+        path: '/categories',
+        options: { pre: [{ method: auth }], cors: routeCors },
+        handler: addCategory
+    });
+
+    // Update category (protected)
+    server.route({
+        method: 'PATCH',
+        path: '/categories/{id}',
+        options: { pre: [{ method: auth }], cors: routeCors },
+        handler: updateCategory
+    });
+
+    // Delete category (protected)
+    server.route({
+        method: 'DELETE',
+        path: '/categories/{id}',
+        options: { pre: [{ method: auth }], cors: routeCors },
+        handler: deleteCategory
+    });
 };
