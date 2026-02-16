@@ -41,9 +41,10 @@ const deleteProduct = async (request, h) => {
 
 
 //get product by id
+// Get product by ID
 const getProductById = async (request, h) => {
     try {
-        const product = await Product.findById(request.params.id);
+        const book = await Product.findById(request.params.id);
         if (!product) {
             return h.response({ error: 'Product not found' }).code(404);
         }
