@@ -41,17 +41,25 @@ const deleteProduct = async (request, h) => {
 
 
 //get product by id
+// Get product by ID
 const getProductById = async (request, h) => {
-    try {
-        const book = await Product.findById(request.params.id);
-        if (!product) {
-            return h.response({ error: 'Product not found' }).code(404);
-        }
-        return h.response(product).code(200);
-    } catch (err) {
-        return h.response({ error: err.message }).code(500);
+  try {
+    const { id } = request.params;
+
+    // Fetch the product
+    const product = await Product.findById(id).populate('category'); // populate if you have categories
+
+    if (!product) {
+      return h.response({ error: 'Product not found' }).code(404);
     }
-}
+
+    return h.response(product).code(200);
+  } catch (err) {
+    console.error("Error fetching product:", err);
+    return h.response({ error: err.message }).code(500);
+  }
+};
+
 const updateProduct = async (request, h) => {
     const { id } = request.params; // get product ID from URL
     const updates = request.payload; // fields to update
