@@ -15,8 +15,12 @@ const {
 const auth = require('./middlewares/authentication');
 
 const routeCors = {
-    origin: ['http://localhost:5173', 'https://your-netlify-app.netlify.app'],
-    additionalHeaders: ['content-type', 'authorization'],
+  origin: [
+    "http://localhost:5173",
+    "https://snowshopadmin.netlify.app",
+    "https://lab3frontendrosali.netlify.app"
+  ],
+  additionalHeaders: ["content-type", "authorization"]
 };
 
 module.exports = (server) => {
