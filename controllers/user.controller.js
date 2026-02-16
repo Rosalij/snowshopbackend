@@ -26,6 +26,8 @@ const addUser = async (request, h) => {
 };
 
 
+
+
 const loginUser = async (request, h) => {
     try {
         const { email, password } = request.payload;

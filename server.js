@@ -14,7 +14,8 @@ const init = async () => {
       cors: {
         origin: [
           'http://localhost:5173',
-          'https://snowshopfrontend.netlify.app'
+          'https://snowshopfrontend.netlify.app',
+          'https://lab3frontendrosali.netlify.app'
         ],
         additionalHeaders: ['content-type', 'authorization'],
         credentials: false
